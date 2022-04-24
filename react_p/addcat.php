@@ -2,7 +2,7 @@
 include("db.php");
 header("Access-Control-Allow-Origin: http://localhost:3000");
 
-$cname=$_POST['cname'];
+$cname=$con->real_escape_string($_POST['cname']);
 
 $ins="INSERT INTO categories SET cname='$cname'";
 $con->query($ins);
