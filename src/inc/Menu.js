@@ -10,18 +10,23 @@ function Menu(){
                            
                           
                            <Link className="nav-link" to="/">
-                               <div className="nav-link-icon"><i data-feather="filter"></i></div>
+                               <div className="nav-link"></div>
                                Dashboard
                            </Link>
 
                            <Link className="nav-link" to="/add-category">
-                               <div className="nav-link-icon"><i data-feather="filter"></i></div>
+                               <div className="nav-link"></div>
                                Add Category
                            </Link>
                            
                            <Link className="nav-link" to="/list-category">
-                               <div className="nav-link-icon"><i data-feather="filter"></i></div>
+                               <div className="nav-link"></div>
                                List Category
+                           </Link>
+
+                           <Link className="nav-link" to="/add-product">
+                               <div className="nav-link"></div>
+                               Add Product
                            </Link>
                        </div>
                    

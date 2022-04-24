@@ -3,7 +3,7 @@ import Menu from '../inc/Menu';
 
 import axios from 'axios';
 
-function Listcategory(){
+function Addproduct(){
 
     let [cats,setCats]=useState([]);
 async function getcat(){
@@ -13,6 +13,12 @@ async function getcat(){
   useEffect(()=>{
 getcat();
   },[]);
+
+    let [cid,setCid]=useState("");
+    let [pname,setPname]=useState("");
+    let [pimg,setPimg]=useState("");
+    let [pprice,setPprice]=useState("");
+    let [msg,setMsg]=useState("");
     return(
 <>
 <nav className="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
@@ -201,7 +207,7 @@ getcat();
                                    <div className="col-auto mt-4">
                                        <h1 className="page-header-title">
                                            <div className="page-header-icon"><i data-feather="filter"></i></div>
-                                           List Category
+                                           Add Category
                                        </h1>
                                        
                                    </div>
@@ -215,23 +221,57 @@ getcat();
                            <div className="card-header">Extended DataTables</div>
                            <div className="card-body">
 
-                           <table className="table table-striped">
-    <thead>
-      <tr>
-        <th>Category name</th>
-        <th>Delete</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-        {cats.map((c)=>
-      <tr key={c.cat_id}>
-          <td>{c.cname}</td>
-        
-      </tr>
-        )}
-    </tbody>
-  </table>
+{msg?
+  <div className="alert alert-success">
+  <strong>Success!</strong> {msg}
+</div>:''}
+
+
+<p>Category</p>
+<p><select onChange={(ev)=>{
+    setCid(ev.target.value);
+}}>
+    <option>-Select Category-</option>
+    {cats.map((c)=>
+    <option key={c.cat_id} value={c.cat_id}>{c.cname}</option>
+    )}
+    </select></p>
+
+
+ <p>Product name</p>
+<p><input type="text" onChange={(ev)=>{
+setPname(ev.target.value);
+}} /></p>
+
+<p>Product Price</p>
+<p><input type="text" onChange={(ev)=>{
+setPprice(ev.target.value);
+}} /></p>
+
+
+<p>Product Image</p>
+<p><input type="file" onChange={(ev)=>{
+setPimg(ev.target.files[0]);
+}} /></p>
+
+<p><input type="button" value="Add Product" className="btn btn-primary"
+onClick={async ()=>{
+    var fd=new FormData();
+    fd.append("cid",cid);
+    fd.append("pname",pname);
+    fd.append("pprice",pprice);
+    fd.append("pimg",pimg);
+
+
+    var resp=await axios.post("http://localhost/react_p/addproduct.php",fd);
+    console.log(resp.data);
+    if(resp.data.msg){
+        setMsg(resp.data.msg);
+    }
+
+}}
+/></p>
+
 
 
                               
@@ -258,4 +298,4 @@ getcat();
 
     );
 }
-export default Listcategory;
+export default Addproduct;
